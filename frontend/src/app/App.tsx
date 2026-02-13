@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { api } from "../api";
 import { useState } from "react";
 import { WelcomePage } from "./components/WelcomePage";
 import { WelcomeBusinessHub } from "./components/WelcomeBusinessHub";
@@ -27,6 +29,13 @@ export default function App() {
   const [currentView, setCurrentView] = useState<View>("dashboard");
   const [workspaceName, setWorkspaceName] = useState("My Business");
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+    useEffect(() => {
+    api.get("/")
+      .then(res => console.log("Backend connected:", res.data))
+      .catch(err => console.log("Backend error:", err));
+  }, []);
+
 
   const handleGetStarted = () => {
     setShowWelcome(false);
